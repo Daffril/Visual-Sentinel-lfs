@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Detection System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: rgb(0,0,0);
+            background: linear-gradient(310deg, rgba(0,0,0,1) 0%, rgb(52, 52, 53) 35%, rgb(133, 133, 134) 100%);
+            /* background-color: black;  */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        .btn-start {
+            background-color:#7352c1;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+        .btn-start:hover , .btn-start:active {
+            background-color:  #8d63ef;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4 text-white">Welcome to the Detection System</h1>
+        <a href="{{ url_for('home') }}" class="btn btn-start btn-lg">Start Detection</a>
+    </div>
+</body>
+</html>
