@@ -70,42 +70,25 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <p class="lead text-black">Upload a video for Number Plate Detection:</p>
-                    <form action="" method="post" enctype="multipart/form-data" class="upload-form" onsubmit="showFileUploadedMsg(event, 'video')">
+                    <form action="/number_plate_detection" method="post" enctype="multipart/form-data" class="upload-form">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="videoInput" name="video" accept="video/*" required onchange="updateLabel('video')">
-                            <label class="custom-file-label" for="videoInput" id="videoLabel">Choose file</label>
+                            <input type="file" class="custom-file-input" id="videoInput" name="video" accept="video/*" required onchange="updateLabel(this, 'videoLabel')">
+                            <label class="custom-file-label" for="videoInput" id="videoLabel">Choose Video</label>
                         </div>
-                        <button type="submit" class="btn btn-start upload-btn mt-3">Upload Video</button>
-                        <div id="videoFileUploadedMsg" class="fileUploadedMsg" style="display: none;">Video uploaded!</div>
+                        <button type='submit', class="btn btn-start upload-btn mt-3 float-right">Start Detection</button>
+            
                     </form>
                 </div>
             </div>
-            <button class="btn btn-start mt-3 float-right" onclick="startDetection()">Start Detection</button>
         </div>
     </div>
 
     <!-- JavaScript to show file uploaded message and uploaded video -->
     <script>
-        function updateLabel(type) {
-            var input = document.getElementById(type + 'Input');
-            var label = document.getElementById(type + 'Label');
+        function updateLabel(input, labelId) {
+            var label = document.getElementById(labelId);
             var fileName = input.files[0].name;
             label.innerHTML = fileName;
-        }
-
-        function showFileUploadedMsg(event, type) {
-            event.preventDefault(); // Prevent form submission
-            var msgId = type + 'FileUploadedMsg';
-            document.getElementById(msgId).style.display = 'inline'; // Display file uploaded message
-            // setTimeout(function() {
-            //     document.getElementById(msgId).style.display = 'none'; // Hide file uploaded message after 3 seconds
-            // }, 3000);
-        }
-
-        function startDetection() {
-            // Add your logic to start detection
-            // For example, redirect to another page or call an API
-            alert('Detection started!');
         }
     </script>
 </body>
