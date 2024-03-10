@@ -8,7 +8,7 @@ def draw_text(frame, text, position, font_size=1, thickness=2):
     color = (0, 255, 0)
     cv2.putText(frame, text, position, font, font_size, color, thickness, cv2.LINE_AA)
 
-def process_video(video_path, image_path1, image_path2, upload_folder):
+def process_video(video_path, image_path1, upload_folder):
     # Load a model for face verification
     face_verification_model = "VGG-Face"
     yolo_model = YOLO('C:\\Users\\LENOVO\\OneDrive\\Desktop\\Visual-Sentinel-main\\face\\yolov8n-face.pt')  # load a custom YOLO model
@@ -26,7 +26,7 @@ def process_video(video_path, image_path1, image_path2, upload_folder):
         if not ret:
             break
 
-        if frame_count % 5 == 0:  # Perform face identification every 10th frame
+        if frame_count % 20 == 0:  # Perform face identification every 10th frame
             # Detect faces using YOLO
             results = yolo_model(frame)[0]
 
@@ -37,19 +37,18 @@ def process_video(video_path, image_path1, image_path2, upload_folder):
                     # Extract and compare features for each given face image
                     detected_face = frame[int(y1):int(y2), int(x1):int(x2)]
                     verification_result1 = DeepFace.verify(detected_face, image_path1, model_name=face_verification_model, enforce_detection=False, align=True)
-                    verification_result2 = DeepFace.verify(detected_face, image_path2, model_name=face_verification_model, enforce_detection=False, align=True)
 
                     # Draw bounding box and text
-                    color = (0, 255, 0) if verification_result1['verified'] or verification_result2['verified'] else (0, 0, 255)
+                    color = (0, 255, 0) if verification_result1['verified'] else (0, 0, 255)
                     cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, 2)
 
-                    if verification_result1['verified'] or verification_result2['verified']:
+                    if verification_result1['verified']:
                         text = "Person Found"
                         person_found=True
                         draw_text(frame, text, (int(x1), int(y1) - 10), font_size=1.5, thickness=3)
-                    out.write(frame)
+                    
         # Write the frame to the output video
-        
+        out.write(frame)
         frame_count += 1
 
     cap.release()
